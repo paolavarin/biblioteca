@@ -26,8 +26,9 @@ public class PrestamoPresentation {
 
         if (encontrado != null && encontrado.getExistencias() > 0) {
             Prestamo p = prestamoDomain.registrarPrestamo(encontrado, alumno);
-            System.out.println("Préstamo hecho del libro: " + p.getIdLibro());
+            System.out.println("Préstamo hecho del libro: " + p.getLibro().getIdLibro());
             System.out.println("Existencias ahora: " + encontrado.getExistencias());
+
         } else {
             System.out.println("Libro no disponible");
         }

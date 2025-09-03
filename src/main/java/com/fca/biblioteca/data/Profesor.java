@@ -1,13 +1,21 @@
 package com.fca.biblioteca.data;
 
-public class Profesor extends Persona {
-    private String numeroTrabajador;
+import jakarta.persistence.*;
 
-    public Profesor(String id, String apellido, String nombre, String numeroTrabajador) {
+@Entity
+@Table(name = "profesor")
+public class Profesor extends Persona {
+
+    @Column(length = 64)
+    private String departamento;
+
+    protected Profesor() {}
+    public Profesor(String id, String apellido, String nombre) {
         super(id, apellido, nombre);
-        this.numeroTrabajador = numeroTrabajador;
     }
 
-    public String getNumeroTrabajador() { return numeroTrabajador; }
-    public void setNumeroTrabajador(String numeroTrabajador) { this.numeroTrabajador = numeroTrabajador; }
+    public String getDepartamento() { return departamento; }
+    public void setDepartamento(String departamento) { this.departamento = departamento; }
 }
+
+

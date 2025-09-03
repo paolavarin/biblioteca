@@ -1,26 +1,48 @@
 package com.fca.biblioteca.data;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "prestamo")
 public class Prestamo {
-    private String idPersona;
-    private String idLibro;
-    private LocalDate fechaPrestamo;
-    private int diasPrestamo;
 
-    public Prestamo(String idPersona, String idLibro, LocalDate fechaPrestamo, int diasPrestamo) {
-        this.idPersona = idPersona;
-        this.idLibro = idLibro;
-        this.fechaPrestamo = fechaPrestamo;
-        this.diasPrestamo = diasPrestamo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "persona_id", nullable = false)
+    private Persona persona;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_libro", referencedColumnName = "id_libro", nullable = false)
+    private Libro libro;
+
+    @Column(name = "fecha_prestamo", nullable = false)
+    private LocalDate fechaPrestamo = LocalDate.now();
+
+    @Column(name = "fecha_devolucion")
+    private LocalDate fechaDevolucion;
+
+    @Column(name = "dias", nullable = false)
+    private int dias = 14;
+
+    protected Prestamo() {}
+
+    public Prestamo(Persona persona, Libro libro, LocalDate fechaPrestamo, int dias) {
+        this.persona = persona; this.libro = libro;
+        this.fechaPrestamo = fechaPrestamo; this.dias = dias;
     }
 
-    public String getIdPersona() { return idPersona; }
-    public String getIdLibro() { return idLibro; }
+    public Long getId() { return id; }
+    public Persona getPersona() { return persona; }
+    public Libro getLibro() { return libro; }
     public LocalDate getFechaPrestamo() { return fechaPrestamo; }
-    public int getDiasPrestamo() { return diasPrestamo; }
-
-    public void setFechaPrestamo(LocalDate fechaPrestamo) { this.fechaPrestamo = fechaPrestamo; }
-    public void setDiasPrestamo(int diasPrestamo) { this.diasPrestamo = diasPrestamo; }
+    public LocalDate getFechaDevolucion() { return fechaDevolucion; }
+    public void setFechaDevolucion(LocalDate fechaDevolucion) { this.fechaDevolucion = fechaDevolucion; }
+    public int getDias() { return dias; }
+    public void setDias(int dias) { this.dias = dias; }
 }
+
 
